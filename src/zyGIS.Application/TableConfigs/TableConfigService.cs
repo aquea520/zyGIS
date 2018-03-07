@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace zyGIS.TableConfigs
 {
-    public class TableConfigService : AsyncCrudAppService<TableConfig, TableConfigDto, Guid, PagedResultRequestDto, CreateTableConfigDto, TableConfigDto>, ITableConfigService
+    public class TableConfigService : zyGISAsyncCrudAppService<TableConfig, TableConfigDto, Guid, PagedResultRequestDto, CreateTableConfigDto, TableConfigDto>, ITableConfigService
     {
         public TableConfigService(IRepository<TableConfig, Guid> repository): base(repository)
         {

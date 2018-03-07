@@ -15,9 +15,10 @@ using zyGIS.EntityFrameworkCore;
 namespace zyGIS.Migrations
 {
     [DbContext(typeof(zyGISDbContext))]
-    partial class zyGISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180307064717_20180307144653")]
+    partial class _20180307144653
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -981,6 +982,8 @@ namespace zyGIS.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ByteLength");
+
+                    b.Property<string>("CSharpType");
 
                     b.Property<int?>("CharLength");
 

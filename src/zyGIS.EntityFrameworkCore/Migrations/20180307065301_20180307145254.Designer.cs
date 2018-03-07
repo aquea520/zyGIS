@@ -15,9 +15,10 @@ using zyGIS.EntityFrameworkCore;
 namespace zyGIS.Migrations
 {
     [DbContext(typeof(zyGISDbContext))]
-    partial class zyGISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180307065301_20180307145254")]
+    partial class _20180307145254
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

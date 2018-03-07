@@ -5,8 +5,10 @@ using Abp.Domain.Repositories;
 using Stbis.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,21 +26,26 @@ namespace zyGIS
 
         }
 
-        public virtual async Task<PagedResultDto<TEntityDto>> GetAllByQuery(TGetAllInput input, FilterGroup filter)
+        public virtual async Task<PagedResultDto<TEntityDto>> GetAllByQuery(TGetAllInput input, string filterJson)
         {
-            FilterRule rule = new FilterRule()
-            {
-                field = "age",
-                op = "equal",
-                type = "number",
-                value = ""
-            };
-            filter.rules.Add(rule);
+            var ser = new DataContractJsonSerializer(typeof(FilterGroup));
+            var ms = new MemoryStream(Encoding.UTF8.GetBytes(filterJson));
+            FilterGroup filter = (FilterGroup)ser.ReadObject(ms);
+            
 
             CheckGetAllPermission();
 
             QueryableSearcher<TEntity> queryType = new QueryableSearcher<TEntity>(filter);
-            Expression<Func<TEntity, bool>> exp = queryType.Search();
+            Expression<Func<TEntity, bool>> exp = t=> 1 == 1;
+
+            try
+            {
+                exp = queryType.Search();
+            }
+            catch(NullReferenceException nullExp)
+            {
+                throw nullExp;
+            }
 
             var query = CreateFilteredQuery(input).Where(exp);
 
